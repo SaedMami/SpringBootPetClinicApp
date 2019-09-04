@@ -1,6 +1,6 @@
 package org.mami.springpetclinic.model;
 
-public class PetType extends BaseEntity {
+public class PetType extends BaseEntity<Long> {
     private String name;
 
     public String getName() {

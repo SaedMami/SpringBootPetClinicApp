@@ -1,4 +1,4 @@
-package org.mami.springpetclinic.services;
+package org.mami.springpetclinic.services.crud;
 
 import org.mami.springpetclinic.model.Owner;
 
