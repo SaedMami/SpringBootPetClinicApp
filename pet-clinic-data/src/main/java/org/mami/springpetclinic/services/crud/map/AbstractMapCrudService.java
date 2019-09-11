@@ -33,6 +33,15 @@ public abstract class AbstractMapCrudService<T extends BaseEntity<ID>, ID> imple
 
     @Override
     public T save(T object) {
-        return this.map.put(object.getId(), object);
+        if (object != null) {
+            if (object.getId() == null) {
+                object.setId(this.getNextId());
+            }
+            return this.map.put(object.getId(), object);
+        }
+
+        throw new RuntimeException("Cannot save null object");
     }
+
+    protected abstract ID getNextId();
 }
