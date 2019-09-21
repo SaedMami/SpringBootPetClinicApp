@@ -140,3 +140,4 @@ Desktop.ini
 ######################
 .eslintcache
 /HELP.md
+/target/checkout/
