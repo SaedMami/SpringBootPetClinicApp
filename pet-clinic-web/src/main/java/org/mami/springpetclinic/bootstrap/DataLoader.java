@@ -1,6 +1,7 @@
 package org.mami.springpetclinic.bootstrap;
 
 import org.mami.springpetclinic.model.Owner;
+import org.mami.springpetclinic.model.Pet;
 import org.mami.springpetclinic.model.PetType;
 import org.mami.springpetclinic.model.Vet;
 import org.mami.springpetclinic.services.crud.OwnerService;
@@ -9,6 +10,8 @@ import org.mami.springpetclinic.services.crud.VetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
 
 @Component
 public class DataLoader implements CommandLineRunner {
@@ -36,17 +39,37 @@ public class DataLoader implements CommandLineRunner {
         catType.setName("Cat");
         this.petTypeService.save(catType);
 
-        Owner owner1 = new Owner();
-        owner1.setFirstName("Fionna");
-        owner1.setLastName("Gelennane");
+        Owner fionnaOwner = new Owner();
+        fionnaOwner.setFirstName("Fionna");
+        fionnaOwner.setLastName("Gelennane");
+        fionnaOwner.setAddress("123 Buckleys Road");
+        fionnaOwner.setCity("Bristol");
+        fionnaOwner.setTelephone("123 444 567");
 
-        this.ownerService.save(owner1);
+        Pet fionnaPet = new Pet();
+        fionnaPet.setPetType(dogType);
+        fionnaPet.setOwner(fionnaOwner);
+        fionnaPet.setBirthDate(LocalDate.now());
+        fionnaPet.setName("Rosco");
+        fionnaOwner.getPets().add(fionnaPet);
 
-        Owner owner2 = new Owner();
-        owner2.setFirstName("Michael");
-        owner2.setLastName("Weston");
+        this.ownerService.save(fionnaOwner);
 
-        this.ownerService.save(owner2);
+        Owner mikeOwner = new Owner();
+        mikeOwner.setFirstName("Michael");
+        mikeOwner.setLastName("Weston");
+        mikeOwner.setAddress("123 Filton Grove");
+        fionnaOwner.setCity("London");
+        fionnaOwner.setTelephone("457 66455 34");
+
+        Pet mikePet = new Pet();
+        mikePet.setPetType(catType);
+        mikePet.setOwner(mikeOwner);
+        mikePet.setBirthDate(LocalDate.now());
+        mikePet.setName("Whiskers");
+        mikeOwner.getPets().add(mikePet);
+
+        this.ownerService.save(mikeOwner);
 
         System.out.println("loaded Owners ...");
 
