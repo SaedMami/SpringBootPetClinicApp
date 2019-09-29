@@ -3,13 +3,11 @@ package org.mami.springpetclinic.services.crud.map;
 import org.mami.springpetclinic.model.BaseEntity;
 import org.mami.springpetclinic.services.crud.CrudService;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
-public abstract class AbstractMapCrudService<T extends BaseEntity<ID>, ID> implements CrudService<T, ID> {
-    protected Map<ID, T> map = new HashMap<>();
+public abstract class AbstractMapCrudService<T extends BaseEntity<Long>> implements CrudService<T, Long> {
+
+    protected Map<Long, T> map = new HashMap<>();
 
     @Override
     public Set<T> findAll() {
@@ -17,7 +15,7 @@ public abstract class AbstractMapCrudService<T extends BaseEntity<ID>, ID> imple
     }
 
     @Override
-    public T findById(ID id) {
+    public T findById(Long id) {
         return this.map.get(id);
     }
 
@@ -27,7 +25,7 @@ public abstract class AbstractMapCrudService<T extends BaseEntity<ID>, ID> imple
     }
 
     @Override
-    public void deleteById(ID id) {
+    public void deleteById(Long id) {
         this.map.remove(id);
     }
 
@@ -43,5 +41,7 @@ public abstract class AbstractMapCrudService<T extends BaseEntity<ID>, ID> imple
         throw new RuntimeException("Cannot save null object");
     }
 
-    protected abstract ID getNextId();
+    private Long getNextId() {
+        return this.map.isEmpty() ? 1L : Collections.max(this.map.keySet()) + 1L;
+    }
 }
