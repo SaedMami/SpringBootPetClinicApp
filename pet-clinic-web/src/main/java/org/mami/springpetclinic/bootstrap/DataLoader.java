@@ -1,8 +1,10 @@
 package org.mami.springpetclinic.bootstrap;
 
 import org.mami.springpetclinic.model.Owner;
+import org.mami.springpetclinic.model.PetType;
 import org.mami.springpetclinic.model.Vet;
 import org.mami.springpetclinic.services.crud.OwnerService;
+import org.mami.springpetclinic.services.crud.PetTypeService;
 import org.mami.springpetclinic.services.crud.VetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -13,16 +15,27 @@ public class DataLoader implements CommandLineRunner {
 
     private final OwnerService ownerService;
     private final VetService vetService;
+    private final PetTypeService petTypeService;
 
 
     @Autowired
-    public DataLoader(OwnerService ownerService, VetService vetService) {
+    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
+        this.petTypeService = petTypeService;
     }
 
     @Override
     public void run(String... args) {
+
+        PetType dogType = new PetType();
+        dogType.setName("Dog");
+        this.petTypeService.save(dogType);
+
+        PetType catType = new PetType();
+        catType.setName("Cat");
+        this.petTypeService.save(catType);
+
         Owner owner1 = new Owner();
         owner1.setFirstName("Fionna");
         owner1.setLastName("Gelennane");
