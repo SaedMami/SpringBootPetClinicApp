@@ -35,7 +35,8 @@ public abstract class AbstractMapCrudService<T extends BaseEntity<Long>> impleme
             if (object.getId() == null) {
                 object.setId(this.getNextId());
             }
-            return this.map.put(object.getId(), object);
+            this.map.put(object.getId(), object);
+            return object;
         }
 
         throw new RuntimeException("Cannot save null object");
