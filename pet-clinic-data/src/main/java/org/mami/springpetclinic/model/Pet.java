@@ -1,12 +1,20 @@
 package org.mami.springpetclinic.model;
 
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import java.time.LocalDate;
 
+@Entity
 public class Pet extends BaseEntity<Long> {
-    private PetType petType;
-    private Owner owner;
+
     private LocalDate birthDate;
     private String name;
+
+    @ManyToOne
+    private PetType petType;
+
+    @ManyToOne
+    private Owner owner;
 
     public PetType getPetType() {
         return petType;

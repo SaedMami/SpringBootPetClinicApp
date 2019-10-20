@@ -1,6 +1,10 @@
 package org.mami.springpetclinic.model;
 
+import javax.persistence.MappedSuperclass;
+
+@MappedSuperclass
 public class Person extends BaseEntity<Long> {
+
     private String firstName;
     private String lastName;
 
