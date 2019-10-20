@@ -1,5 +1,8 @@
 package org.mami.springpetclinic.model;
 
+import javax.persistence.Entity;
+
+@Entity
 public class Specialty extends BaseEntity<Long> {
 
     private String description;
