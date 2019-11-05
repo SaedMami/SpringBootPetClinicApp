@@ -5,10 +5,13 @@ import org.mami.springpetclinic.model.Vet;
 import org.mami.springpetclinic.services.crud.SpecialtyService;
 import org.mami.springpetclinic.services.crud.VetService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
+@Profile({"default", "map"})
 public class VetServiceMap extends AbstractMapCrudService<Vet> implements VetService {
+
     private SpecialtyService specialtyService;
 
     @Autowired

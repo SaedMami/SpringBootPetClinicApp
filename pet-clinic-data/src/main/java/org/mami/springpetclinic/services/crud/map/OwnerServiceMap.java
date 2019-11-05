@@ -8,9 +8,11 @@ import org.mami.springpetclinic.services.crud.OwnerService;
 import org.mami.springpetclinic.services.crud.PetService;
 import org.mami.springpetclinic.services.crud.PetTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
+@Profile({"default", "map"})
 public class OwnerServiceMap extends AbstractMapCrudService<Owner> implements OwnerService {
 
     private PetTypeService petTypeService;

@@ -5,14 +5,16 @@ import org.mami.springpetclinic.model.Visit;
 import org.mami.springpetclinic.services.crud.PetService;
 import org.mami.springpetclinic.services.crud.VisitService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
+@Profile({"default", "map"})
 public class PetServiceMap extends AbstractMapCrudService<Pet> implements PetService {
 
-    @Autowired
     private VisitService visitService;
 
+    @Autowired
     public PetServiceMap(VisitService visitService) {
         this.visitService = visitService;
     }
