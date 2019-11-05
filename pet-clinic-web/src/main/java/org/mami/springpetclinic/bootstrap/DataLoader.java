@@ -1,10 +1,7 @@
 package org.mami.springpetclinic.bootstrap;
 
 import org.mami.springpetclinic.model.*;
-import org.mami.springpetclinic.services.crud.OwnerService;
-import org.mami.springpetclinic.services.crud.PetTypeService;
-import org.mami.springpetclinic.services.crud.SpecialtyService;
-import org.mami.springpetclinic.services.crud.VetService;
+import org.mami.springpetclinic.services.crud.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -18,14 +15,33 @@ public class DataLoader implements CommandLineRunner {
     private final VetService vetService;
     private final PetTypeService petTypeService;
     private final SpecialtyService specialtyService;
+    private final VisitService visitService;
+
+    private final PetType catType;
+    private final PetType dogType;
 
 
     @Autowired
-    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialtyService specialtyService) {
+    public DataLoader(OwnerService ownerService,
+                      VetService vetService,
+                      PetTypeService petTypeService,
+                      SpecialtyService specialtyService,
+                      VisitService visitService) {
+
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
         this.specialtyService = specialtyService;
+        this.visitService = visitService;
+
+        this.catType = new PetType();
+        this.catType.setName("Cat");
+
+        this.dogType = new PetType();
+        this.dogType.setName("Dog");
+
+        this.petTypeService.save(catType);
+        this.petTypeService.save(dogType);
     }
 
     @Override
@@ -66,45 +82,42 @@ public class DataLoader implements CommandLineRunner {
     }
 
     private void LoadOwners() {
-        PetType dogType = new PetType();
-        dogType.setName("Dog");
-        this.petTypeService.save(dogType);
+        Owner owner1 = new Owner();
+        owner1.setFirstName("Fionna");
+        owner1.setLastName("Gelennane");
+        owner1.setAddress("123 Buckleys Road");
+        owner1.setCity("Bristol");
+        owner1.setTelephone("123 444 567");
 
-        PetType catType = new PetType();
-        catType.setName("Cat");
-        this.petTypeService.save(catType);
+        Pet owner1Pet = new Pet();
+        owner1Pet.setPetType(dogType);
+        owner1Pet.setOwner(owner1);
+        owner1Pet.setBirthDate(LocalDate.now());
+        owner1Pet.setName("Rosco");
+        owner1.getPets().add(owner1Pet);
 
-        Owner fionnaOwner = new Owner();
-        fionnaOwner.setFirstName("Fionna");
-        fionnaOwner.setLastName("Gelennane");
-        fionnaOwner.setAddress("123 Buckleys Road");
-        fionnaOwner.setCity("Bristol");
-        fionnaOwner.setTelephone("123 444 567");
+        Visit owner1PetVisit = new Visit();
+        owner1PetVisit.setPet(owner1Pet);
+        owner1PetVisit.setDate(LocalDate.now());
+        owner1PetVisit.setDescription("Sneezy Doggo");
+        this.ownerService.save(owner1);
+        this.visitService.save(owner1PetVisit);
 
-        Pet fionnaPet = new Pet();
-        fionnaPet.setPetType(dogType);
-        fionnaPet.setOwner(fionnaOwner);
-        fionnaPet.setBirthDate(LocalDate.now());
-        fionnaPet.setName("Rosco");
-        fionnaOwner.getPets().add(fionnaPet);
+        Owner owner2 = new Owner();
+        owner2.setFirstName("Michael");
+        owner2.setLastName("Weston");
+        owner2.setAddress("123 Filton Grove");
+        owner1.setCity("London");
+        owner1.setTelephone("457 66455 34");
 
-        this.ownerService.save(fionnaOwner);
+        Pet owner2Pet = new Pet();
+        owner2Pet.setPetType(catType);
+        owner2Pet.setOwner(owner2);
+        owner2Pet.setBirthDate(LocalDate.now());
+        owner2Pet.setName("Whiskers");
+        owner2.getPets().add(owner2Pet);
 
-        Owner mikeOwner = new Owner();
-        mikeOwner.setFirstName("Michael");
-        mikeOwner.setLastName("Weston");
-        mikeOwner.setAddress("123 Filton Grove");
-        fionnaOwner.setCity("London");
-        fionnaOwner.setTelephone("457 66455 34");
-
-        Pet mikePet = new Pet();
-        mikePet.setPetType(catType);
-        mikePet.setOwner(mikeOwner);
-        mikePet.setBirthDate(LocalDate.now());
-        mikePet.setName("Whiskers");
-        mikeOwner.getPets().add(mikePet);
-
-        this.ownerService.save(mikeOwner);
+        this.ownerService.save(owner2);
 
         System.out.println("loaded Owners ...");
     }

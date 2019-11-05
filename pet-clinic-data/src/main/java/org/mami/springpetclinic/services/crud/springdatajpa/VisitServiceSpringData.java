@@ -14,9 +14,9 @@ import java.util.Set;
 @Profile("springdatajpa")
 public class VisitServiceSpringData implements VisitService {
 
-    @Autowired
-    private VisitRepository visitRepository;
+    private final VisitRepository visitRepository;
 
+    @Autowired
     public VisitServiceSpringData(VisitRepository visitRepository) {
         this.visitRepository = visitRepository;
     }

@@ -14,10 +14,9 @@ import java.util.Set;
 @Profile("springdatajpa")
 public class VetServiceSpringData implements VetService {
 
+    private final VetRepository vetRepository;
+
     @Autowired
-    private VetRepository vetRepository;
-
-
     public VetServiceSpringData(VetRepository vetRepository) {
         this.vetRepository = vetRepository;
     }

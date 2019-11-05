@@ -14,10 +14,9 @@ import java.util.Set;
 @Profile("springdatajpa")
 public class SpecialtyServiceSpringData implements SpecialtyService {
 
+    private final SpecialtyRepository specialtyRepository;
+
     @Autowired
-    private SpecialtyRepository specialtyRepository;
-
-
     public SpecialtyServiceSpringData(SpecialtyRepository specialtyRepository) {
         this.specialtyRepository = specialtyRepository;
     }

@@ -17,9 +17,9 @@ import java.util.stream.StreamSupport;
 @Profile("springdatajpa")
 public class OwnerServiceSpringData implements OwnerService {
 
-    @Autowired
     private final OwnerRepository ownerRepository;
 
+    @Autowired
     public OwnerServiceSpringData(OwnerRepository ownerRepository) {
         this.ownerRepository = ownerRepository;
     }

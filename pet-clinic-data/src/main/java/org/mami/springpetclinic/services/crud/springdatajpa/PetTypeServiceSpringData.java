@@ -15,9 +15,10 @@ import java.util.stream.StreamSupport;
 @Profile("springdatajpa")
 public class PetTypeServiceSpringData implements PetTypeService {
 
-    @Autowired
+
     private final PetTypeRepository petTypeRepository;
 
+    @Autowired
     public PetTypeServiceSpringData(PetTypeRepository petTypeRepository) {
         this.petTypeRepository = petTypeRepository;
     }

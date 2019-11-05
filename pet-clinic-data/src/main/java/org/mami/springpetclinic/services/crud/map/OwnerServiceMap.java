@@ -7,6 +7,7 @@ import org.mami.springpetclinic.model.PetType;
 import org.mami.springpetclinic.services.crud.OwnerService;
 import org.mami.springpetclinic.services.crud.PetService;
 import org.mami.springpetclinic.services.crud.PetTypeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,6 +15,12 @@ public class OwnerServiceMap extends AbstractMapCrudService<Owner> implements Ow
 
     private PetTypeService petTypeService;
     private PetService petService;
+
+    @Autowired
+    public OwnerServiceMap(PetTypeService petTypeService, PetService petService) {
+        this.petTypeService = petTypeService;
+        this.petService = petService;
+    }
 
     @Override
     public Owner save(@NotNull Owner object) {
@@ -33,7 +40,7 @@ public class OwnerServiceMap extends AbstractMapCrudService<Owner> implements Ow
                 }
 
                 // see if we need to save the pet
-                if (pet.getId() != null) {
+                if (pet.getId() == null) {
                     Pet savedPet = this.petService.save(pet);
                     pet.setId(savedPet.getId());
                 }
