@@ -1,6 +1,5 @@
 package org.mami.springpetclinic.services.crud.map;
 
-import com.sun.istack.internal.NotNull;
 import org.mami.springpetclinic.model.Owner;
 import org.mami.springpetclinic.model.Pet;
 import org.mami.springpetclinic.model.PetType;
@@ -25,7 +24,7 @@ public class OwnerServiceMap extends AbstractMapCrudService<Owner> implements Ow
     }
 
     @Override
-    public Owner save(@NotNull Owner object) {
+    public Owner save(Owner object) {
 
         // see if we need to save the pets
         if (object.getPets() != null) {
