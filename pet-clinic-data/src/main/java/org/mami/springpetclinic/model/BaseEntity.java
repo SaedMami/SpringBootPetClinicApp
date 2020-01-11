@@ -1,6 +1,7 @@
 package org.mami.springpetclinic.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import java.io.Serializable;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @MappedSuperclass
 public class BaseEntity<ID> implements Serializable {
 

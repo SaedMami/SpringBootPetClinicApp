@@ -7,11 +7,11 @@ import java.util.*;
 
 public abstract class AbstractMapCrudService<T extends BaseEntity<Long>> implements CrudService<T, Long> {
 
-    protected Map<Long, T> map = new HashMap<>();
+    private Map<Long, T> map = new HashMap<>();
 
     @Override
     public Set<T> findAll() {
-        return new HashSet(this.map.values());
+        return new HashSet<T>(this.map.values());
     }
 
     @Override

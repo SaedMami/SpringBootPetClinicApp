@@ -25,11 +25,9 @@ public class OwnerServiceMap extends AbstractMapCrudService<Owner> implements Ow
 
     @Override
     public Owner save(Owner object) {
-
         // see if we need to save the pets
         if (object.getPets() != null) {
             object.getPets().forEach(pet -> {
-
                 // see if we need to save the pet type
                 if (pet.getPetType() == null) {
                     throw new RuntimeException("A Pet can't have a null PetType");
@@ -53,6 +51,9 @@ public class OwnerServiceMap extends AbstractMapCrudService<Owner> implements Ow
 
     @Override
     public Owner findByLastName(String lastName) {
-        return null;
+        return this.findAll().stream()
+                .filter(x -> x.getLastName().equals(lastName))
+                .findFirst()
+                .orElse(null);
     }
 }

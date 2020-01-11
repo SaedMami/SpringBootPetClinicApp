@@ -1,22 +1,22 @@
 package org.mami.springpetclinic.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import java.time.LocalDate;
 
 @Getter
-@Setter
-@NoArgsConstructor
+@Entity
 @AllArgsConstructor
 @Builder
-@Entity
 public class Visit extends BaseEntity<Long> {
 
-    private LocalDate date;
-    private String description;
+    private final LocalDate date;
+    private final String description;
 
     @ManyToOne
-    private Pet pet;
+    private final Pet pet;
 }

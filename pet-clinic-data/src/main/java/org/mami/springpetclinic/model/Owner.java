@@ -1,6 +1,8 @@
 package org.mami.springpetclinic.model;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -9,10 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Getter
-@Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Entity
 public class Owner extends Person {
 
@@ -22,4 +21,13 @@ public class Owner extends Person {
     private String address;
     private String city;
     private String telephone;
+
+    @Builder
+    Owner(String address, String city,
+          String telephone, String firstName, String lastName) {
+        super(firstName, lastName);
+        this.address = address;
+        this.city = city;
+        this.telephone = telephone;
+    }
 }
